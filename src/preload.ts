@@ -9,3 +9,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // We'll add methods here as needed for file handling, etc.
   saveVideo: (filePath: string, buffer: ArrayBuffer) => ipcRenderer.invoke('save-video', filePath, buffer),
 });
+
+// Add TypeScript interface
+declare global {
+  interface Window {
+    electron: {
+      saveVideo: (fileName: string, data: Uint8Array) => Promise<string>;
+    };
+  }
+}

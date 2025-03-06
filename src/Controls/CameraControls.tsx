@@ -2,15 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from './Controls.module.css';
 
 interface CameraControlsProps {
-  isEnabled: boolean;
-  onToggleCamera: (enabled: boolean) => void;
   stream: MediaStream | null;
   onRecordingComplete: (blob: Blob) => void;
 }
 
 const CameraControls: React.FC<CameraControlsProps> = ({
-  isEnabled,
-  onToggleCamera,
   stream,
   onRecordingComplete
 }) => {
@@ -90,7 +86,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({
 
   // Start recording
   const handleStartRecording = () => {
-    if (!mediaRecorderRef.current || !isEnabled) return;
+    if (!mediaRecorderRef.current) return;
     
     setRecordedChunks([]);
     setRecordingTime(0);
@@ -116,40 +112,29 @@ const CameraControls: React.FC<CameraControlsProps> = ({
 
   return (
     <div className={styles.controlsWrapper}>
-      <div className={styles.cameraToggle}>
-        <button 
-          className={`${styles.button} ${isEnabled ? styles.dangerButton : styles.primaryButton}`}
-          onClick={() => onToggleCamera(!isEnabled)}
-        >
-          {isEnabled ? 'Disable Camera' : 'Enable Camera'}
-        </button>
-      </div>
-
-      {isEnabled && (
-        <div className={styles.recordingControls}>
-          {!isRecording ? (
-            <button 
-              className={`${styles.button} ${styles.recordButton}`}
-              onClick={handleStartRecording}
-            >
-              Start Recording
-            </button>
-          ) : (
-            <div className={styles.activeRecording}>
-              <div className={styles.recordingIndicator}>
-                <span className={styles.recordingDot}></span>
-                Recording: {formatTime(recordingTime)}
-              </div>
-              <button 
-                className={`${styles.button} ${styles.stopButton}`}
-                onClick={handleStopRecording}
-              >
-                Stop Recording
-              </button>
+      <div className={styles.recordingControls}>
+        {!isRecording ? (
+          <button 
+            className={`${styles.button} ${styles.recordButton}`}
+            onClick={handleStartRecording}
+          >
+            Start Recording
+          </button>
+        ) : (
+          <div className={styles.activeRecording}>
+            <div className={styles.recordingIndicator}>
+              <span className={styles.recordingDot}></span>
+              Recording: {formatTime(recordingTime)}
             </div>
-          )}
-        </div>
-      )}
+            <button 
+              className={`${styles.button} ${styles.stopButton}`}
+              onClick={handleStopRecording}
+            >
+              Stop Recording
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -39,18 +39,6 @@ const FileControls: React.FC<FileControlsProps> = ({
     }
   };
 
-  // Open file using Electron's native dialog
-  const handleOpenNativeDialog = async () => {
-    try {
-      const result = await (window as any).electronAPI.openVideo();
-      if (result.success && result.filePath) {
-        onFileSelected(result.fileName, `file://${result.filePath}`);
-      }
-    } catch (err) {
-      console.error('Error opening file:', err);
-    }
-  };
-
   return (
     <div className={styles.controlsWrapper}>
       <div className={styles.fileSelectionArea}>
@@ -69,12 +57,6 @@ const FileControls: React.FC<FileControlsProps> = ({
               onClick={handleOpenFile}
             >
               Select Video File
-            </button>
-            <button 
-              className={`${styles.button} ${styles.primaryButton}`}
-              onClick={handleOpenNativeDialog}
-            >
-              Browse Files
             </button>
           </div>
         ) : (
