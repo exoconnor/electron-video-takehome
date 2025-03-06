@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { accessCamera } from './accessCamera'
 
 const Camera: React.FC = () => {
@@ -11,9 +11,13 @@ const Camera: React.FC = () => {
     height: 480
   });
 
-  if (videoRef.current) {
-    videoRef.current.srcObject = cameraEnabled ? stream : null
-  }
+  // update video ref based on webcam state
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.srcObject = cameraEnabled ? stream : null
+    }
+  }, [cameraEnabled, stream])
+
   
   return (   
     <div className="camera-section">

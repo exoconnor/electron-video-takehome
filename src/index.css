@@ -8,9 +8,10 @@ body {
 
 /* App Container */
 .app-container {
-  max-width: 800px;
+  height: 95vh;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
 }
 
 h1, h2 {
@@ -40,7 +41,12 @@ h2 {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #000;
+  width: 640px;
+  height: 480px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .camera-video {
