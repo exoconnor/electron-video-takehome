@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog } from 'electron'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import started from 'electron-squirrel-startup'
 
@@ -52,3 +53,31 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// TODO: make this a register function?
+// Handle saving video files
+ipcMain.handle('save-video', async (_event, suggestedName, data) => {
+  try {
+    const { canceled, filePath } = await dialog.showSaveDialog({
+      title: 'Save Video',
+      defaultPath: suggestedName,
+      filters: [
+        { name: 'WebM Files', extensions: ['webm'] },
+        { name: 'All Files', extensions: ['*'] }
+      ]
+    });
+
+    if (canceled || !filePath) {
+      return { success: false, message: 'Save canceled' };
+    }
+
+    await fs.writeFile(filePath, Buffer.from(data));
+    return { success: true, filePath };
+  } catch (error) {
+    console.error('Error saving video:', error);
+    return { 
+      success: false, 
+      message: error instanceof Error ? error.message : 'Unknown error saving file' 
+    };
+  }
+});

@@ -48,6 +48,9 @@
 }
 
 .controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   padding: 10px;
   text-align: center;
   background-color: #f9fafb;
