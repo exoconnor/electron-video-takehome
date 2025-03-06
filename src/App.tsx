@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { accessCamera } from './Record/accessCamera'
-import { createRecording } from './Record/createRecording'
+import { useCamera } from './Record/useCamera'
+import { useRecording } from './Record/useRecording'
 import { AppMode, InputMode } from './types'
 import styles from './App.module.css'
 
@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const [mode, input] = inputMode
 
   // Determine camera access
-  const { stream, error: cameraError } = accessCamera({
+  const { stream, error: cameraError } = useCamera({
     width: 640,
     height: 480,
   })

@@ -8,7 +8,7 @@ import type { RecordingConfig, RecordingOperations, RecordingStatus } from './ty
  * @param config - Recording configuration options
  * @returns Recording state and controls
  */
-export function createRecording(
+export function useRecording(
   stream: MediaStream | null,
   config: RecordingConfig = {},
 ): RecordingOperations {

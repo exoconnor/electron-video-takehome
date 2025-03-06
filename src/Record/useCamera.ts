@@ -7,7 +7,7 @@ import { type CameraConfig, type CameraResult } from './types'
  * @param config - Camera configuration options
  * @returns Camera state and references
  */
-export function accessCamera(config: CameraConfig = {}): CameraResult {
+export function useCamera(config: CameraConfig = {}): CameraResult {
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [isLoading, setIsLoading] = useState(true)
