@@ -63,21 +63,21 @@ ipcMain.handle('save-video', async (_event, suggestedName, data) => {
       defaultPath: suggestedName,
       filters: [
         { name: 'WebM Files', extensions: ['webm'] },
-        { name: 'All Files', extensions: ['*'] }
-      ]
-    });
+        { name: 'All Files', extensions: ['*'] },
+      ],
+    })
 
     if (canceled || !filePath) {
-      return { success: false, message: 'Save canceled' };
+      return { success: false, message: 'Save canceled' }
     }
 
-    await fs.writeFile(filePath, Buffer.from(data));
-    return { success: true, filePath };
+    await fs.writeFile(filePath, Buffer.from(data))
+    return { success: true, filePath }
   } catch (error) {
-    console.error('Error saving video:', error);
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : 'Unknown error saving file' 
-    };
+    console.error('Error saving video:', error)
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'Unknown error saving file',
+    }
   }
-});
+})

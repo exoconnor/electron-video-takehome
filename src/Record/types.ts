@@ -1,12 +1,12 @@
-import { type RefObject } from 'react';
+import { type RefObject } from 'react'
 
 /**
  * Configuration options for camera access
  */
 export interface CameraConfig {
-  width?: number;
-  height?: number;
-  facingMode?: 'user' | 'environment';
+  width?: number
+  height?: number
+  facingMode?: 'user' | 'environment'
 }
 
 /**
@@ -14,13 +14,13 @@ export interface CameraConfig {
  */
 export interface CameraResult {
   /** The media stream if successfully acquired */
-  stream: MediaStream | null;
-  
+  stream: MediaStream | null
+
   /** Any error that occurred during camera access */
-  error: Error | null;
-  
+  error: Error | null
+
   /** Whether camera is currently initializing */
-  isLoading: boolean;
+  isLoading: boolean
 }
 
 /**
@@ -28,43 +28,43 @@ export interface CameraResult {
  */
 export interface RecordingConfig {
   /** MIME type of the recording */
-  mimeType?: string;
-  
+  mimeType?: string
+
   /** Video bitrate */
-  videoBitsPerSecond?: number;
-  
+  videoBitsPerSecond?: number
+
   /** Whether to include audio */
-  audio?: boolean;
+  audio?: boolean
 }
 
 /**
  * Status of a recording
  */
-export type RecordingStatus = 
-  | 'inactive'   // Not recording
-  | 'recording'  // Currently recording
-  | 'paused'     // Recording is paused
+export type RecordingStatus =
+  | 'inactive' // Not recording
+  | 'recording' // Currently recording
+  | 'paused' // Recording is paused
   | 'processing' // Processing recording
-  | 'error';     // Error occurred
+  | 'error' // Error occurred
 
 /**
  * Results of recording operation
  */
 export interface RecordingState {
   /** Current status of recording */
-  status: RecordingStatus;
-  
+  status: RecordingStatus
+
   /** Recorded data when complete */
-  recordedBlob: Blob | null;
-  
+  recordedBlob: Blob | null
+
   /** URL for recorded content */
-  recordedUrl: string | null;
-  
+  recordedUrl: string | null
+
   /** Timer for recording duration */
-  duration: number;
-  
+  duration: number
+
   /** Any error that occurred */
-  error: Error | null;
+  error: Error | null
 }
 
 /**
@@ -72,16 +72,18 @@ export interface RecordingState {
  */
 export interface RecordingControls {
   /** Start recording function */
-  startRecording: () => void;
-  
+  startRecording: () => void
+
   /** Stop recording function */
-  stopRecording: () => void;
-  
+  stopRecording: () => void
+
   /** Reset recording state */
-  resetRecording: () => void;
-  
+  resetRecording: () => void
+
   /** Save recording to disk */
-  saveRecording: (fileName?: string) => Promise<{ success: boolean; filePath?: string; error?: string }>;
+  saveRecording: (
+    fileName?: string,
+  ) => Promise<{ success: boolean; filePath?: string; error?: string }>
 }
 
 /**

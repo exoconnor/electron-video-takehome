@@ -16,9 +16,10 @@ export default defineConfig({
       localsConvention: 'camelCase',
       scopeBehaviour: 'local',
       // Generate a more readable class name in development
-      generateScopedName: process.env.NODE_ENV === 'development' 
-        ? '[name]__[local]__[hash:base64:5]' 
-        : '[hash:base64:8]',
+      generateScopedName:
+        process.env.NODE_ENV === 'development'
+          ? '[name]__[local]__[hash:base64:5]'
+          : '[hash:base64:8]',
     },
   },
 })
