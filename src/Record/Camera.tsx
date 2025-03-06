@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { accessCamera } from './accessCamera'
 
+import styles from './Camera.module.css'
+
 const Camera: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [cameraEnabled, setCameraEnabled] = useState(false);
@@ -20,8 +22,8 @@ const Camera: React.FC = () => {
 
   
   return (   
-    <div className="camera-section">
-      <div className="camera-container">
+    <div className={styles.section}>
+      <div className={styles.container}>
         <video
           ref={videoRef}
           autoPlay
@@ -29,18 +31,18 @@ const Camera: React.FC = () => {
           muted
           width={640}
           height={480}
-          className="camera-video"
+          className={styles.video}
         />
         
         {cameraError && (
-          <div className="camera-error">
+          <div className={styles.error}>
             <p>Error: {cameraError.message}</p>
           </div>
         )}
       </div>
       {cameraEnabled ? (
         <>
-          <div className="camera-controls">
+          <div className={styles.controls}>
             <button 
               onClick={() => setCameraEnabled(false)}
               className="control-btn"
@@ -50,7 +52,7 @@ const Camera: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="camera-controls">
+        <div className={styles.controls}>
           <button 
             onClick={() => setCameraEnabled(true)}
             className="control-btn"
