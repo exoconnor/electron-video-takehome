@@ -26,6 +26,24 @@
  * ```
  */
 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 
-console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+const App: React.FC = () => {
+  return (
+    <div className="container">
+      <h1>💖 Video Recorder</h1>
+      <p>Welcome to our Electron video recording application.</p>
+    </div>
+  );
+};
+
+// Render the React application
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+console.log('👋 This message is being logged by "renderer.tsx", included via Vite');
