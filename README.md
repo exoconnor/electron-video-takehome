@@ -1,10 +1,12 @@
 # Electron Video Recorder
 
-A single-page Electron application that allows users to record videos from their webcam, save recordings to disk, and play them back with seeking capabilities.
+A single-page Electron application that allows users to record videos from their webcam, save
+recordings to disk, and play them back with seeking capabilities.
 
 ## Features
 
-- [ ] **Video Recording**: Record video from your webcam and save it to disk in a common video format
+- [ ] **Video Recording**: Record video from your webcam and save it to disk in a common video
+      format
 - [ ] **Video Playback**: Play back recorded videos with standard controls (play, pause, stop, seek)
 - [ ] **User-Friendly Interface**: Clean, intuitive design with logical layout and controls
 
@@ -21,6 +23,7 @@ A single-page Electron application that allows users to record videos from their
 ## Installation
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/yourusername/electron-video-recorder.git
    cd electron-video-recorder
@@ -82,7 +85,8 @@ electron-video-recorder/
 - [React](https://reactjs.org/) - UI library
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 - [Vite](https://vitejs.dev/) - Frontend build tool
-- [Electron Forge](https://www.electronforge.io/) - Complete tool for creating, publishing, and installing Electron applications
+- [Electron Forge](https://www.electronforge.io/) - Complete tool for creating, publishing, and
+  installing Electron applications
 
 ## License
 
