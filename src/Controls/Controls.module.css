@@ -1,0 +1,186 @@
+.controlsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Common button styles */
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primaryButton {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.primaryButton:hover {
+  background-color: #2563eb;
+}
+
+.successButton {
+  background-color: #10b981;
+  color: white;
+}
+
+.successButton:hover {
+  background-color: #059669;
+}
+
+.dangerButton {
+  background-color: #ef4444;
+  color: white;
+}
+
+.dangerButton:hover {
+  background-color: #dc2626;
+}
+
+.secondaryButton {
+  background-color: #6b7280;
+  color: white;
+}
+
+.secondaryButton:hover {
+  background-color: #4b5563;
+}
+
+/* Camera toggle section */
+.cameraToggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Recording controls */
+.recordingControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.recordButton {
+  background-color: #ef4444;
+  color: white;
+}
+
+.recordButton:hover {
+  background-color: #dc2626;
+}
+
+.stopButton {
+  background-color: #9ca3af;
+  color: white;
+}
+
+.stopButton:hover {
+  background-color: #6b7280;
+}
+
+.activeRecording {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.recordingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: 4px;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.recordingDot {
+  width: 10px;
+  height: 10px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Playback controls */
+.playbackTitle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.playbackTitle h3 {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+}
+
+.playbackButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.saveActions {
+  display: flex;
+  gap: 10px;
+}
+
+/* File controls */
+.fileSelectionArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.fileButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.currentFileInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.currentFileInfo h3 {
+  margin: 0;
+  color: #4b5563;
+  font-size: 16px;
+}
+
+.fileName {
+  margin: 5px 0;
+  font-weight: 500;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.playbackActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
