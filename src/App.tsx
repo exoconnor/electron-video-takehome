@@ -113,7 +113,7 @@ const App: React.FC = () => {
       const array = new Uint8Array(buffer)
       const fileName = `recording_${new Date().toISOString().replace(/:/g, '-')}.webm`
 
-      const result = await (window as any).electronAPI.saveVideo(fileName, array)
+      const result = await window.electronAPI.saveVideo(fileName, array)
 
       if (result.success) {
         alert(`Video saved successfully to: ${result.filePath}`)

@@ -11,11 +11,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.invoke('save-video', filePath, buffer),
 })
 
-// Add TypeScript interface
+type saveVideoResult = {
+  success: true,
+  filePath: string
+} | {
+  success: false,
+  message: string
+}
+
+// Add TypeScript interface (why HERE?)
 declare global {
   interface Window {
-    electron: {
-      saveVideo: (fileName: string, data: Uint8Array) => Promise<string>
+    electronAPI: {
+      saveVideo: (fileName: string, data: Uint8Array) => Promise<saveVideoResult>
     }
   }
 }

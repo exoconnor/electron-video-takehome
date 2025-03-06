@@ -139,7 +139,7 @@ export function useRecording(
     recordedChunks.current = []
   }
 
-  const saveRecording = async (fileName?: string) => {
+  const saveRecording = async (fileName: string) => {
     if (!recordedBlob) {
       return {
         success: false,
@@ -152,7 +152,7 @@ export function useRecording(
       const arrayBuffer = await recordedBlob.arrayBuffer()
 
       // Use the electron API exposed in preload script
-      const result = await (window as any).electronAPI.saveVideo(fileName, arrayBuffer)
+      const result = await window.electronAPI.saveVideo(fileName, new Uint8Array(arrayBuffer))
       return result
     } catch (err) {
       console.error('Error saving recording:', err)

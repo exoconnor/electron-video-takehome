@@ -82,7 +82,7 @@ export interface RecordingControls {
 
   /** Save recording to disk */
   saveRecording: (
-    fileName?: string,
+    fileName: string,
   ) => Promise<{ success: boolean; filePath?: string; error?: string }>
 }
 
