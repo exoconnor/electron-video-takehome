@@ -112,7 +112,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ stream, onRecordingComp
       <div className={styles.recordingControls}>
         {!isRecording ? (
           <button
-            className={`${styles.button} ${styles.recordButton}`}
+            className={`${styles.retroButton} ${styles.recordButton}`}
             onClick={handleStartRecording}
           >
             Start Recording
@@ -124,7 +124,7 @@ const CameraControls: React.FC<CameraControlsProps> = ({ stream, onRecordingComp
               Recording: {formatTime(recordingTime)}
             </div>
             <button
-              className={`${styles.button} ${styles.stopButton}`}
+              className={`${styles.retroButton} ${styles.stopButton}`}
               onClick={handleStopRecording}
             >
               Stop Recording

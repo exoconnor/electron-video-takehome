@@ -2,18 +2,12 @@ import React, { useRef } from 'react'
 import styles from './Controls.module.css'
 
 interface FileControlsProps {
-  videoRef: React.RefObject<HTMLVideoElement>
   onFileSelected: (name: string, url: string) => void
   currentFile: { name: string; url: string } | null
   onExit: () => void
 }
 
-const FileControls: React.FC<FileControlsProps> = ({
-  videoRef,
-  onFileSelected,
-  currentFile,
-  onExit,
-}) => {
+const FileControls: React.FC<FileControlsProps> = ({ onFileSelected, currentFile, onExit }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Handle file selection
@@ -52,7 +46,7 @@ const FileControls: React.FC<FileControlsProps> = ({
 
         {!currentFile ? (
           <div className={styles.fileButtons}>
-            <button className={`${styles.button} ${styles.primaryButton}`} onClick={handleOpenFile}>
+            <button className={`${styles.retroButton} ${styles.primaryButton}`} onClick={handleOpenFile}>
               Select Video File
             </button>
           </div>
@@ -63,12 +57,12 @@ const FileControls: React.FC<FileControlsProps> = ({
 
             <div className={styles.playbackActions}>
               <button
-                className={`${styles.button} ${styles.secondaryButton}`}
+                className={`${styles.retroButton} ${styles.secondaryButton}`}
                 onClick={handleOpenFile}
               >
                 Open Different File
               </button>
-              <button className={`${styles.button} ${styles.dangerButton}`} onClick={onExit}>
+              <button className={`${styles.retroButton} ${styles.dangerButton}`} onClick={onExit}>
                 Back to Camera
               </button>
             </div>

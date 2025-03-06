@@ -1,3 +1,108 @@
+.modeSelector {
+  display: flex;
+  align-content: flex-start;
+  background-color: #e0e0e0;
+  padding: 4px;
+  border-radius: 2px;
+  border: 2px solid #333;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  margin: 0;
+}
+
+.modeSelectorInner {
+  display: flex;
+  position: relative;
+}
+
+.modeButton {
+  padding: 8px 15px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  text-transform: uppercase;
+  border: none;
+  background: none;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.modeButton:hover {
+  color: #000;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 0;
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff;
+  border: 2px solid #333;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* For the Polaroid effect around the video */
+.polaroidContainer {
+  background-color: #fff;
+  padding: 15px 15px 40px 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+.videoWrapper {
+  background-color: #000;
+  width: 640px;
+  height: 480px;
+  position: relative;
+  overflow: hidden;
+}
+
+.controlsPanel {
+  margin-top: 20px;
+  background-color: #f0f0f0;
+  border: 2px solid #333;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Retro button styles */
+.retroButton {
+  background-color: #e0e0e0;
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #999;
+  margin: 0 5px;
+  transition: all 0.1s;
+}
+
+.retroButton:active {
+  box-shadow: 0 1px 0 #999;
+  transform: translateY(2px);
+}
+
+.recordButton {
+  /* composes: retroButton; */
+  background-color: #ff4a4a;
+  color: white;
+  border-color: #b30000;
+  box-shadow: 0 3px 0 #b30000;
+}
+
+.recordButton:active {
+  box-shadow: 0 1px 0 #b30000;
+}
+
 .controlsWrapper {
   display: flex;
   flex-direction: column;

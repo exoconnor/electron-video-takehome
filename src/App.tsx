@@ -1,39 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { accessCamera } from './Record/accessCamera'
 import { createRecording } from './Record/createRecording'
+import { AppMode, InputMode } from './types'
 import styles from './App.module.css'
 
-/**
- * The app can be one of four main modes at all times.
- *
- * Camera - ready to record
- * RecordingPlayback - preview a recording before saving
- * FilePlayback - play a video from file
- * Error - No video source
- *
- *
- * Any mode can transition to Camera or FilePlayback, RecordingPlayback
- * is only transitioned to from Camera mode upon completion of a recording
- */
-enum AppMode {
-  Camera = 'camera',
-  RecordingPlayback = 'recording-playback',
-  FilePlayback = 'file-playback',
-  Error = 'error',
-}
-
-type RecordedVideo = { blob: Blob; url: string }
-type VideoFile = { name: string; url: string }
-type DisplayInput = MediaStream | RecordedVideo | VideoFile | null
-
-type InputMode =
-  | [AppMode.Error, any]
-  | [AppMode, null]
-  | [AppMode.Camera, MediaStream]
-  | [AppMode.RecordingPlayback, RecordedVideo]
-  | [AppMode.FilePlayback, VideoFile]
-
-// Controls components will be imported here
+import ModeSelector from './Controls/ModeSelector'
 import CameraControls from './Controls/CameraControls'
 import PlaybackControls from './Controls/PlaybackControls'
 import FileControls from './Controls/FileControls'
@@ -62,10 +33,11 @@ const App: React.FC = () => {
       if (mode === AppMode.Camera && input === null) {
         // Initialize camera mode with stream
         setInputMode([AppMode.Camera, stream])
-      } else if (mode === AppMode.Error && cameraError === null) {
-        // Recover from error state if stream becomes available
-        setInputMode([AppMode.Camera, stream])
       }
+      //  else if (mode === AppMode.Error && cameraError === null) {
+      //   // Recover from error state if stream becomes available
+      //   setInputMode([AppMode.Camera, stream])
+      // }
     }
   }, [stream, mode, input])
 
@@ -78,10 +50,10 @@ const App: React.FC = () => {
       const tracks = (videoRef.current.srcObject as MediaStream).getTracks()
       tracks.forEach(track => track.stop())
       videoRef.current.srcObject = null
+    } else if (videoRef.current.src) {
+      URL.revokeObjectURL(videoRef.current.src)
+      videoRef.current.src = ''
     }
-
-    // Clear the src attribute
-    videoRef.current.src = ''
 
     // Set up the appropriate source based on mode
     switch (mode) {
@@ -110,15 +82,29 @@ const App: React.FC = () => {
     setInputMode([AppMode.FilePlayback, { name, url }])
   }
 
-  // Return to camera mode (discard recording)
-  const cameraMode = () => {
-    if (input?.url) {
+  // Handle mode changes
+  const handleModeChange = (newMode: AppMode) => {
+    if (newMode === mode) return
+
+    // Clean up URLs when changing modes
+    if ((mode === AppMode.RecordingPlayback || mode === AppMode.FilePlayback) && input?.url) {
       URL.revokeObjectURL(input.url)
     }
-    setInputMode([AppMode.Camera, stream])
+
+    switch (newMode) {
+      case AppMode.Camera:
+        setInputMode([AppMode.Camera, stream])
+        break
+      case AppMode.FilePlayback:
+        setInputMode([AppMode.FilePlayback, null])
+        break
+      // RecordingPlayback mode is only entered after recording
+    }
   }
 
-  // Save recording and go back to camera
+  // Return to camera mode (discard recording)
+  const cameraMode = () => setInputMode([AppMode.Camera, stream])
+
   const handleSaveRecording = async () => {
     if (mode !== AppMode.RecordingPlayback || !input) return
 
@@ -144,26 +130,6 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Electron Video Recorder</h1>
-
-        {/* Mode selection buttons */}
-        <div className={styles.modeButtons}>
-          <button
-            className={`${styles.modeButton} ${mode === 'camera' ? styles.activeMode : ''}`}
-            onClick={() => mode !== 'camera' && cameraMode()}
-          >
-            Camera
-          </button>
-          <button
-            className={`${styles.modeButton} ${mode === 'file-playback' ? styles.activeMode : ''}`}
-            onClick={() => mode !== 'file-playback' && setInputMode([AppMode.FilePlayback, null])}
-          >
-            File Playback
-          </button>
-        </div>
-      </header>
-
       {/* Main video container - consistent across all modes */}
       <div className={styles.videoContainer}>
         <video
@@ -175,35 +141,32 @@ const App: React.FC = () => {
           controls={mode !== 'camera'} // Show controls in playback modes
         />
 
-        {cameraError && mode === 'camera' && (
+        {/* {cameraError && mode === 'camera' && (
           <div className={styles.errorOverlay}>
             <p>Camera Error: {cameraError.message}</p>
           </div>
-        )}
+        )} */}
       </div>
 
-      {/* Dynamic controls based on current mode */}
       <div className={styles.controlsContainer}>
-        {mode === 'camera' && (
-          <CameraControls stream={stream} onRecordingComplete={handleRecordingComplete} />
-        )}
+        <ModeSelector currentMode={mode} onModeChange={handleModeChange} />
+        <div>
+          {mode === 'camera' && (
+            <CameraControls stream={stream} onRecordingComplete={handleRecordingComplete} />
+          )}
 
-        {mode === 'recording-playback' && (
-          <PlaybackControls
-            videoRef={videoRef}
-            onSave={handleSaveRecording}
-            onCancel={cameraMode}
-          />
-        )}
+          {mode === 'recording-playback' && (
+            <PlaybackControls onSave={handleSaveRecording} onCancel={cameraMode} />
+          )}
 
-        {mode === 'file-playback' && (
-          <FileControls
-            videoRef={videoRef}
-            onFileSelected={handleFileSelected}
-            currentFile={input}
-            onExit={cameraMode}
-          />
-        )}
+          {mode === 'file-playback' && (
+            <FileControls
+              onFileSelected={handleFileSelected}
+              currentFile={input}
+              onExit={cameraMode}
+            />
+          )}
+        </div>
       </div>
     </div>
   )
