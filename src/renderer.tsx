@@ -28,16 +28,8 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from './App'
 import './index.css'
-
-const App: React.FC = () => {
-  return (
-    <div className='container'>
-      <h1>💖 Video Recorder</h1>
-      <p>Welcome to our Electron video recording application.</p>
-    </div>
-  )
-}
 
 // Render the React application
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -45,5 +37,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </React.StrictMode>,
 )
-
-console.log('👋 This message is being logged by "renderer.tsx", included via Vite')
