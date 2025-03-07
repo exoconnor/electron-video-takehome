@@ -20,12 +20,12 @@ type saveVideoResult = {
   message: string
 }
 
-// Add TypeScript interface (why HERE?)
+// Add TypeScript interface
 declare global {
   interface Window {
     electronAPI: {
       saveVideo: (fileName: string, data: Uint8Array) => Promise<saveVideoResult>
-      requestPermissions: () => Promise<void>
+      requestCamera: () => Promise<void>
     }
   }
 }

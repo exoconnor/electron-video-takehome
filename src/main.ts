@@ -80,7 +80,6 @@ ipcMain.handle('save-video', async (_event, suggestedName, data) => {
 })
 
 ipcMain.handle('request-permissions', async (_event) => {
-  // Hope this works!
-  const microphone = await systemPreferences.askForMediaAccess('microphone');
-  const camera = await systemPreferences.askForMediaAccess('camera');
+  await systemPreferences.askForMediaAccess('microphone');
+  await systemPreferences.askForMediaAccess('camera');
 })
