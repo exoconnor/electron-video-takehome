@@ -3,7 +3,7 @@ import styles from './Controls.module.css'
 import { AppMode } from '../types'
 
 interface ModeSelectorProps {
-  currentMode: AppMode,
+  currentMode: AppMode
   onModeChange: (mode: AppMode) => void
 }
 

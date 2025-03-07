@@ -79,7 +79,7 @@ ipcMain.handle('save-video', async (_event, suggestedName, data) => {
   }
 })
 
-ipcMain.handle('request-permissions', async (_event) => {
-  await systemPreferences.askForMediaAccess('microphone');
-  await systemPreferences.askForMediaAccess('camera');
+ipcMain.handle('request-permissions', async _event => {
+  await systemPreferences.askForMediaAccess('microphone')
+  await systemPreferences.askForMediaAccess('camera')
 })

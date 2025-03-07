@@ -20,4 +20,3 @@ export interface CameraResult {
   /** Whether camera is currently initializing */
   isLoading: boolean
 }
-

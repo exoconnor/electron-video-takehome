@@ -9,16 +9,18 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // We'll add methods here as needed for file handling, etc.
   saveVideo: (filePath: string, buffer: ArrayBuffer) =>
     ipcRenderer.invoke('save-video', filePath, buffer),
-  requestCamera: () => ipcRenderer.invoke('request-permissions')
+  requestCamera: () => ipcRenderer.invoke('request-permissions'),
 })
 
-type saveVideoResult = {
-  success: true,
-  filePath: string
-} | {
-  success: false,
-  message: string
-}
+type saveVideoResult =
+  | {
+      success: true
+      filePath: string
+    }
+  | {
+      success: false
+      message: string
+    }
 
 // Add TypeScript interface
 declare global {

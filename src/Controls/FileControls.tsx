@@ -46,7 +46,10 @@ const FileControls: React.FC<FileControlsProps> = ({ onFileSelected, currentFile
 
         {!currentFile ? (
           <div className={styles.fileButtons}>
-            <button className={`${styles.retroButton} ${styles.primaryButton}`} onClick={handleOpenFile}>
+            <button
+              className={`${styles.retroButton} ${styles.primaryButton}`}
+              onClick={handleOpenFile}
+            >
               Select Video File
             </button>
           </div>

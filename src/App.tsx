@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useCamera } from './hooks/useCamera'
 import { AppMode, InputMode } from './types'
 import styles from './App.module.css'
 
@@ -122,15 +121,19 @@ const App: React.FC = () => {
       <div className={styles.controlsContainer}>
         <ModeSelector currentMode={mode} onModeChange={handleModeChange} />
         <div>
-          {mode === 'camera' && (
+          {(mode === AppMode.Camera || mode === AppMode.Error) && (
             <CameraControls
               inputMode={inputMode}
               setInputMode={setInputMode}
-              onRecordingComplete={handleRecordingComplete} />
+              onRecordingComplete={handleRecordingComplete}
+            />
           )}
 
           {mode === 'recording-playback' && (
-            <PlaybackControls onSave={handleSaveRecording} onCancel={() => handleModeChange(AppMode.Camera)} />
+            <PlaybackControls
+              onSave={handleSaveRecording}
+              onCancel={() => handleModeChange(AppMode.Camera)}
+            />
           )}
 
           {mode === 'file-playback' && (
