@@ -5,10 +5,10 @@ recordings to disk, and play them back with seeking capabilities.
 
 ## Features
 
-- [ ] **Video Recording**: Record video from your webcam and save it to disk in a common video
+- [x] **Video Recording**: Record video from your webcam and save it to disk in a common video
       format
-- [ ] **Video Playback**: Play back recorded videos with standard controls (play, pause, stop, seek)
-- [ ] **User-Friendly Interface**: Clean, intuitive design with logical layout and controls
+- [x] **Video Playback**: Play back recorded videos with standard controls (play, pause, stop, seek)
+- [ish] **User-Friendly Interface**: Clean, intuitive design with logical layout and controls
 
 ## Extra Features
 
@@ -64,19 +64,6 @@ npm run make
 
 The output will be in the `out` directory.
 
-## Project Structure
-
-```
-electron-video-recorder/
-├── src/                    # Source code
-│   ├── main.ts             # Main process code
-│   ├── preload.ts          # Preload script
-│   ├── renderer.tsx        # Renderer process entry (React)
-│   └── components/         # React components
-├── forge.config.ts         # Electron Forge configuration
-├── package.json            # Project metadata and dependencies
-├── tsconfig.json           # TypeScript configuration
-└── vite.*.config.ts        # Vite configuration files
 ```
 
 ## Technologies
@@ -91,3 +78,4 @@ electron-video-recorder/
 ## License
 
 MIT
+```
