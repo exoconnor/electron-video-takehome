@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useCamera } from './Record/useCamera'
-import { useRecording } from './Record/useRecording'
+import { useCamera } from './hooks/useCamera'
 import { AppMode, InputMode } from './types'
 import styles from './App.module.css'
 
@@ -9,10 +8,6 @@ import CameraControls from './Controls/CameraControls'
 import PlaybackControls from './Controls/PlaybackControls'
 import FileControls from './Controls/FileControls'
 
-/**
- * 3 buttons and a viewport
- * Start with camera mount
- */
 const App: React.FC = () => {
   // Main video element reference
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -102,9 +97,6 @@ const App: React.FC = () => {
     }
   }
 
-  // Return to camera mode (discard recording)
-  const cameraMode = () => setInputMode([AppMode.Camera, stream])
-
   const handleSaveRecording = async () => {
     if (mode !== AppMode.RecordingPlayback || !input) return
 
@@ -117,8 +109,7 @@ const App: React.FC = () => {
 
       if (result.success) {
         alert(`Video saved successfully to: ${result.filePath}`)
-        // Clean up and return to camera mode
-        cameraMode()
+        handleModeChange(AppMode.Camera)
       } else {
         alert(`Failed to save video: ${result.message || 'Unknown error'}`)
       }
@@ -156,14 +147,14 @@ const App: React.FC = () => {
           )}
 
           {mode === 'recording-playback' && (
-            <PlaybackControls onSave={handleSaveRecording} onCancel={cameraMode} />
+            <PlaybackControls onSave={handleSaveRecording} onCancel={() => handleModeChange(AppMode.Camera)} />
           )}
 
           {mode === 'file-playback' && (
             <FileControls
               onFileSelected={handleFileSelected}
               currentFile={input}
-              onExit={cameraMode}
+              onExit={() => handleModeChange(AppMode.Camera)}
             />
           )}
         </div>
