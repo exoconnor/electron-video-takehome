@@ -16,25 +16,6 @@ const App: React.FC = () => {
   const [inputMode, setInputMode] = useState<InputMode>([AppMode.Camera, null])
   const [mode, input] = inputMode
 
-  // Determine camera access
-  const { stream, error: cameraError } = useCamera({
-    width: 640,
-    height: 480,
-  })
-
-  // If/once camera stream becomes available connect it
-  useEffect(() => {
-    if (stream) {
-      if (mode === AppMode.Camera && input === null) {
-        // Initialize camera mode with stream
-        setInputMode([AppMode.Camera, stream])
-      } else if (mode === AppMode.Error && cameraError === null) {
-        // Recover from error state if stream becomes available
-        setInputMode([AppMode.Camera, stream])
-      }
-    }
-  }, [stream, mode, input])
-
   // Switch videoRef based on inputMode (the HDMI cable special)
   useEffect(() => {
     if (!videoRef.current) return
@@ -87,7 +68,7 @@ const App: React.FC = () => {
 
     switch (newMode) {
       case AppMode.Camera:
-        setInputMode([AppMode.Camera, stream])
+        setInputMode([AppMode.Camera, null])
         break
       case AppMode.FilePlayback:
         setInputMode([AppMode.FilePlayback, null])
@@ -131,9 +112,9 @@ const App: React.FC = () => {
           controls={mode !== 'camera'} // Show controls in playback modes
         />
 
-        {cameraError && mode === 'camera' && (
+        {mode === AppMode.Error && (
           <div className={styles.errorOverlay}>
-            <p>Camera Error: {cameraError.message}</p>
+            <p>Camera Error: {input}</p>
           </div>
         )}
       </div>
@@ -142,7 +123,10 @@ const App: React.FC = () => {
         <ModeSelector currentMode={mode} onModeChange={handleModeChange} />
         <div>
           {mode === 'camera' && (
-            <CameraControls stream={stream} onRecordingComplete={handleRecordingComplete} />
+            <CameraControls
+              inputMode={inputMode}
+              setInputMode={setInputMode}
+              onRecordingComplete={handleRecordingComplete} />
           )}
 
           {mode === 'recording-playback' && (

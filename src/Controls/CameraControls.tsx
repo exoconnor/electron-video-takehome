@@ -1,18 +1,43 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useCamera } from '../hooks/useCamera'
+import { AppMode, InputMode } from '../types'
 import styles from './Controls.module.css'
 
 interface CameraControlsProps {
-  stream: MediaStream | null
+  inputMode: InputMode,
+  setInputMode: (mode: InputMode) => void,
   onRecordingComplete: (blob: Blob) => void
 }
 
-const CameraControls: React.FC<CameraControlsProps> = ({ stream, onRecordingComplete }) => {
+const CameraControls: React.FC<CameraControlsProps> = ({inputMode, setInputMode, onRecordingComplete }) => {
+  const [mode, input] = inputMode
   const [isRecording, setIsRecording] = useState(false)
   const [recordingTime, setRecordingTime] = useState(0)
   const [recordedChunks, setRecordedChunks] = useState<Blob[]>([])
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
   const timerRef = useRef<number | null>(null)
+
+    // Determine camera access
+    const { stream, error: cameraError } = useCamera({
+      width: 640,
+      height: 480,
+    })
+  
+    // If/once camera stream becomes available connect it
+    useEffect(() => {
+      if (stream) {
+        if (input === null) {
+          // Initialize camera mode with stream
+          setInputMode([AppMode.Camera, stream])
+        } else if (mode === AppMode.Error && cameraError === null) {
+          // Recover from error state if stream becomes available
+          setInputMode([AppMode.Camera, stream])
+        }
+      } else if (cameraError) {
+        setInputMode([AppMode.Error, cameraError.message])
+      }
+    }, [stream, mode, input, cameraError])
 
   // Set up media recorder when stream changes
   useEffect(() => {

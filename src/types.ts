@@ -22,6 +22,7 @@ type VideoFile = { name: string; url: string }
 export type MediaInput = MediaStream | RecordedVideo | VideoFile | null
 
 export type InputMode =
+  | [AppMode.Error, string]
   | [AppMode, null]
   | [AppMode.Camera, MediaStream]
   | [AppMode.RecordingPlayback, RecordedVideo]
