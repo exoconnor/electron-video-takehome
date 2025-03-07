@@ -28,11 +28,10 @@ const App: React.FC = () => {
       if (mode === AppMode.Camera && input === null) {
         // Initialize camera mode with stream
         setInputMode([AppMode.Camera, stream])
+      } else if (mode === AppMode.Error && cameraError === null) {
+        // Recover from error state if stream becomes available
+        setInputMode([AppMode.Camera, stream])
       }
-      //  else if (mode === AppMode.Error && cameraError === null) {
-      //   // Recover from error state if stream becomes available
-      //   setInputMode([AppMode.Camera, stream])
-      // }
     }
   }, [stream, mode, input])
 
@@ -132,11 +131,11 @@ const App: React.FC = () => {
           controls={mode !== 'camera'} // Show controls in playback modes
         />
 
-        {/* {cameraError && mode === 'camera' && (
+        {cameraError && mode === 'camera' && (
           <div className={styles.errorOverlay}>
             <p>Camera Error: {cameraError.message}</p>
           </div>
-        )} */}
+        )}
       </div>
 
       <div className={styles.controlsContainer}>

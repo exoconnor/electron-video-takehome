@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, BrowserWindow, ipcMain, dialog, systemPreferences } from 'electron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import started from 'electron-squirrel-startup'
@@ -24,9 +24,6 @@ const createWindow = () => {
   } else {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`))
   }
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -80,4 +77,10 @@ ipcMain.handle('save-video', async (_event, suggestedName, data) => {
       message: error instanceof Error ? error.message : 'Unknown error saving file',
     }
   }
+})
+
+ipcMain.handle('request-permissions', async (_event) => {
+  // Hope this works!
+  const microphone = await systemPreferences.askForMediaAccess('microphone');
+  const camera = await systemPreferences.askForMediaAccess('camera');
 })

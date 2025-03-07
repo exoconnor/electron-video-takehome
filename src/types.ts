@@ -11,6 +11,7 @@
  * is only transitioned to from Camera mode upon completion of a recording
  */
 export enum AppMode {
+  Error = 'error',
   Camera = 'camera',
   RecordingPlayback = 'recording-playback',
   FilePlayback = 'file-playback',

@@ -29,6 +29,8 @@ export function useCamera(config: CameraConfig = {}): CameraResult {
           },
         }
 
+        await window.electronAPI.requestCamera()
+
         const mediaStream = await navigator.mediaDevices.getUserMedia(constraints)
         setStream(mediaStream)
       } catch (err) {

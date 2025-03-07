@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // We'll add methods here as needed for file handling, etc.
   saveVideo: (filePath: string, buffer: ArrayBuffer) =>
     ipcRenderer.invoke('save-video', filePath, buffer),
+  requestCamera: () => ipcRenderer.invoke('request-permissions')
 })
 
 type saveVideoResult = {
@@ -24,6 +25,7 @@ declare global {
   interface Window {
     electronAPI: {
       saveVideo: (fileName: string, data: Uint8Array) => Promise<saveVideoResult>
+      requestPermissions: () => Promise<void>
     }
   }
 }

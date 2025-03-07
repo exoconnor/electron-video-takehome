@@ -3,7 +3,7 @@ import styles from './Controls.module.css'
 import { AppMode } from '../types'
 
 interface ModeSelectorProps {
-  currentMode: AppMode
+  currentMode: AppMode,
   onModeChange: (mode: AppMode) => void
 }
 
@@ -15,7 +15,8 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, onModeChange }
   // Map modes to their index positions
   const modeIndexMap = {
     [AppMode.Camera]: 0,
-    [AppMode.RecordingPlayback]: 1,
+    [AppMode.Error]: 0,
+    [AppMode.RecordingPlayback]: 0,
     [AppMode.FilePlayback]: 2,
   }
 
@@ -40,14 +41,6 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, onModeChange }
         >
           Camera
         </button>
-
-        {/* <button
-          ref={el => buttonRefs.current[1] = el}
-          className={styles.modeButton}
-          onClick={() => onModeChange(AppMode.RecordingPlayback)}
-        >
-          Playback
-        </button> */}
 
         <button
           ref={el => (buttonRefs.current[2] = el)}
